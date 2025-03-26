@@ -1,5 +1,5 @@
 export default async function sitemap() {
-  const baseUrl = 'https://developer-tools-tanvir.vercel.app'; // Replace with your actual domain
+  const baseUrl = 'https://developer-tools-alpha.vercel.app/'; // Replace with your actual domain
 
   // Get all static routes
   const staticRoutes = [
