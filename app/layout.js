@@ -29,6 +29,7 @@ export const metadata = {
 export default function RootLayout({ children }) {
   return (
     <html lang="en" className="scroll-smooth">
+    <meta name="google-site-verification" content="fdkb5VGvlExhGxD_VntG0ZBczF3Ay4B4su0LtqcNvKc" />
       <body
         className={`${geistSans.variable} ${geistMono.variable} antialiased`}
       >
