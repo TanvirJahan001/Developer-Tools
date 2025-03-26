@@ -1,7 +1,7 @@
 export default async function sitemap() {
-  const baseUrl = 'https://developer-tools-tanvir.vercel.app'; // Replace with your actual domain
+  const baseUrl = 'https://developer-tools-alpha.vercel.app';
 
-  // Get all static routes
+ 
   const staticRoutes = [
     {
       url: baseUrl,
@@ -47,7 +47,7 @@ export default async function sitemap() {
     },
   ];
 
-  // Get all tool routes from your toolCategories
+  
   const toolRoutes = [
     // Code Tidy Tools
     'json-prettify',
