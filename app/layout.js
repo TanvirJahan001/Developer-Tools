@@ -18,6 +18,12 @@ export const metadata = {
   icons: {
     icon: "/favicon.ico",
   },
+  verification: {
+    google: 'fdkb5VGvlExhGxD_VntG0ZBczF3Ay4B4su0LtqcNvKc',
+  },
+  alternates: {
+    canonical: 'https://developer-tools-alpha.vercel.app',
+  },
 };
 
 export default function RootLayout({ children }) {
@@ -31,3 +37,4 @@ export default function RootLayout({ children }) {
     </html>
   );
 }
+
