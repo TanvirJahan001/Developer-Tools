@@ -1,4 +1,5 @@
 "use client";
+import Image from 'next/image';
 import { useState } from "react";
 
 export default function ImageCompressor() {
@@ -160,11 +161,16 @@ export default function ImageCompressor() {
                     Original Image
                   </h4>
                   <div className="border border-gray-300 dark:border-gray-700 rounded-lg overflow-hidden">
-                    <img
-                      src={image}
-                      alt="Original"
-                      className="max-w-full h-auto"
-                    />
+                    <div className="relative w-full h-full">
+                      <Image
+                        src={image}
+                        alt="Original"
+                        width={500}
+                        height={500}
+                        className="max-w-full h-auto"
+                        unoptimized
+                      />
+                    </div>
                   </div>
                   <p className="mt-2 text-sm text-gray-500 dark:text-gray-400">
                     Size: {formatFileSize(originalSize)}
@@ -176,11 +182,16 @@ export default function ImageCompressor() {
                     Compressed Image
                   </h4>
                   <div className="border border-gray-300 dark:border-gray-700 rounded-lg overflow-hidden">
-                    <img
-                      src={compressedImage}
-                      alt="Compressed"
-                      className="max-w-full h-auto"
-                    />
+                    <div className="relative w-full h-full">
+                      <Image
+                        src={compressedImage}
+                        alt="Compressed"
+                        width={500}
+                        height={500}
+                        className="w-full h-full object-contain"
+                        unoptimized
+                      />
+                    </div>
                   </div>
                   <p className="mt-2 text-sm text-gray-500 dark:text-gray-400">
                     Size: {formatFileSize(compressedSize)}
@@ -190,11 +201,16 @@ export default function ImageCompressor() {
 
               <div className="aspect-square bg-gray-100 dark:bg-gray-800 rounded-lg overflow-hidden">
                 {compressedImage ? (
-                  <img
-                    src={compressedImage}
-                    alt="Compressed"
-                    className="w-full h-full object-contain"
-                  />
+                  <div className="relative w-full h-full">
+                    <Image
+                      src={compressedImage}
+                      alt="Compressed"
+                      width={500}
+                      height={500}
+                      className="w-full h-full object-contain"
+                      unoptimized
+                    />
+                  </div>
                 ) : (
                   <div className="w-full h-full flex items-center justify-center text-gray-500">
                     Compressed preview will appear here

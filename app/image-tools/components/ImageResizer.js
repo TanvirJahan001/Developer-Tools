@@ -1,4 +1,5 @@
 "use client";
+import Image from 'next/image';
 import { useState } from "react";
 
 export default function ImageResizer() {
@@ -184,10 +185,13 @@ export default function ImageResizer() {
                 Preview
               </h3>
               <div className="border border-gray-300 dark:border-gray-700 rounded-lg overflow-hidden">
-                <img
+                <Image
                   src={resizedImage}
                   alt="Resized Preview"
+                  width={dimensions.width || 500}
+                  height={dimensions.height || 500}
                   className="max-w-full h-auto"
+                  unoptimized // Add this for local blob URLs
                 />
               </div>
               <p className="mt-2 text-sm text-gray-500 dark:text-gray-400">

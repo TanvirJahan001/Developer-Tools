@@ -2,6 +2,13 @@
 const nextConfig = {
   images: {
     domains: ['developer-tools-alpha.vercel.app'],
+    remotePatterns: [
+      {
+        protocol: 'https',
+        hostname: '**',
+      },
+    ],
+    unoptimized: true, // Add this for handling local blob URLs
   },
   async headers() {
     return [
@@ -43,6 +50,7 @@ const nextConfig = {
 };
 
 export default nextConfig;
+
 
 
 
