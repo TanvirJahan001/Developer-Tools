@@ -1,7 +1,9 @@
+"use client";
 import { motion } from "framer-motion";
 import Link from "next/link";
 import { BackgroundSwitcher } from "../components/BackgroundSwitcher";
 import Layout from "../components/Layout";
+
 
 export default function Home() {
   // Animation variants
@@ -30,11 +32,16 @@ export default function Home() {
     visible: { opacity: 1 },
   };
 
-  // AnimatedButton component
-  const AnimatedButton = motion.button;
-
   // AnimatedSection component
   const AnimatedSection = motion.section;
+
+  // Add statistics data
+  const statistics = [
+    { number: "30+", label: "Developer Tools" },
+    { number: "100%", label: "Free" },
+    { number: "24/7", label: "Available" },
+    { number: "0", label: "Ads" },
+  ];
 
   const toolCategories = [
     {
@@ -148,6 +155,14 @@ export default function Home() {
           d="M13 10V3L4 14h7v7l9-11h-7z"
         />
       ),
+      security: (
+        <path
+          strokeLinecap="round"
+          strokeLinejoin="round"
+          strokeWidth={2}
+          d="M9 12l2 2 4-4m5.618-4.016A11.955 11.955 0 0112 2.944a11.955 11.955 0 01-8.618 3.04A12.02 12.02 0 003 9c0 5.591 3.824 10.29 9 11.622 5.176-1.332 9-6.03 9-11.622 0-1.042-.133-2.052-.382-3.016z"
+        />
+      ),
       utility: (
         <path
           strokeLinecap="round"
@@ -172,10 +187,7 @@ export default function Home() {
     <Layout>
       {/* Hero Section with Parallax */}
       <div className="relative h-screen overflow-hidden">
-        {/* Dynamic Background Switcher with Parallax */}
         <BackgroundSwitcher />
-
-        {/* Content */}
         <div className="relative z-10 h-full flex items-center">
           <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
             <motion.div
@@ -185,91 +197,33 @@ export default function Home() {
               variants={staggerContainer}
             >
               <motion.h1
-                className="text-5xl md:text-7xl font-bold text-white mb-6"
+                className="text-4xl tracking-tight font-extrabold text-white sm:text-5xl md:text-6xl"
                 variants={slideUp}
               >
-                Developer Tools
-                <motion.span
-                  className="block text-3xl md:text-4xl mt-4 text-gray-200"
-                  variants={fadeIn}
-                  transition={{ delay: 0.3 }}
-                >
-                  All-in-One Solution
-                </motion.span>
+                <span className="block">Developer Tools</span>
+                <span className="block text-blue-400">All in One Place</span>
               </motion.h1>
+              
               <motion.p
-                className="mt-6 text-xl md:text-2xl text-gray-100 max-w-3xl mx-auto"
+                className="mt-3 max-w-md mx-auto text-base text-gray-300 sm:text-lg md:mt-5 md:text-xl md:max-w-3xl"
                 variants={slideUp}
-                transition={{ delay: 0.5 }}
               >
-                Your all-in-one toolkit for modern web development. Simplify
-                your workflow with our comprehensive suite of development tools.
+                Your complete toolkit for modern web development. Format code, convert data,
+                generate passwords, and much more.
               </motion.p>
+              
               <motion.div
-                className="mt-8 flex gap-4 justify-center"
-                variants={fadeIn}
-                transition={{ delay: 0.7 }}
+                className="mt-5 max-w-md mx-auto sm:flex sm:justify-center md:mt-8"
+                variants={slideUp}
               >
-                <AnimatedButton
-                  className="px-6 py-3 text-sm font-medium rounded-lg bg-gradient-to-r from-primary to-secondary text-white shadow-md shadow-primary/20 hover:shadow-lg hover:shadow-primary/30 hover:-translate-y-0.5 transition-all duration-300 relative overflow-hidden group"
-                  onClick={() =>
-                    document
-                      .querySelector("#tools")
-                      ?.scrollIntoView({ behavior: "smooth" })
-                  }
-                  whileHover={{
-                    scale: 1.03,
-                    transition: { duration: 0.2, ease: "easeInOut" },
-                  }}
-                >
-                  <span className="absolute inset-0 w-full h-full bg-gradient-to-r from-primary to-secondary opacity-0 group-hover:opacity-10 transition-opacity duration-300"></span>
-                  <span className="relative z-10 flex items-center justify-center">
+                <div className="rounded-md shadow">
+                  <Link
+                    href="#tools"
+                    className="w-full flex items-center justify-center px-8 py-3 border border-transparent text-base font-medium rounded-md text-white bg-blue-600 hover:bg-blue-700 md:py-4 md:text-lg md:px-10"
+                  >
                     Explore Tools
-                    <svg
-                      className="w-4 h-4 ml-2"
-                      fill="none"
-                      viewBox="0 0 24 24"
-                      stroke="currentColor"
-                    >
-                      <path
-                        strokeLinecap="round"
-                        strokeLinejoin="round"
-                        strokeWidth={2}
-                        d="M17 8l4 4m0 0l-4 4m4-4H3"
-                      />
-                    </svg>
-                  </span>
-                </AnimatedButton>
-                <AnimatedButton
-                  className="px-6 py-3 text-sm font-medium rounded-lg border border-white text-white backdrop-blur-sm bg-white/5 shadow-md shadow-white/5 hover:bg-white/10 hover:shadow-lg hover:shadow-white/10 hover:-translate-y-0.5 transition-all duration-300 relative overflow-hidden group"
-                  onClick={() =>
-                    document
-                      .querySelector("#features")
-                      ?.scrollIntoView({ behavior: "smooth" })
-                  }
-                  whileHover={{
-                    scale: 1.03,
-                    transition: { duration: 0.2, ease: "easeInOut" },
-                  }}
-                >
-                  <span className="absolute inset-0 w-full h-full bg-white opacity-0 group-hover:opacity-5 transition-opacity duration-300"></span>
-                  <span className="relative z-10 flex items-center justify-center">
-                    Learn More
-                    <svg
-                      className="w-4 h-4 ml-2"
-                      fill="none"
-                      viewBox="0 0 24 24"
-                      stroke="currentColor"
-                    >
-                      <path
-                        strokeLinecap="round"
-                        strokeLinejoin="round"
-                        strokeWidth={2}
-                        d="M19 9l-7 7-7-7"
-                      />
-                    </svg>
-                  </span>
-                </AnimatedButton>
+                  </Link>
+                </div>
               </motion.div>
             </motion.div>
           </div>
@@ -277,119 +231,88 @@ export default function Home() {
       </div>
 
       {/* Features Section */}
-      <div id="features" className="py-24 bg-gray-50 dark:bg-gray-900">
+      <section className="py-24 bg-gradient-to-b from-gray-900 to-gray-800">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-          <AnimatedSection className="text-center">
-            <h2 className="text-3xl font-bold bg-clip-text text-transparent bg-gradient-to-r from-primary to-secondary">
-              Why Choose Our Tools?
-            </h2>
-            <p className="mt-4 text-xl text-gray-600 dark:text-gray-300">
-              Built with modern development workflows in mind
-            </p>
-          </AnimatedSection>
-
           <motion.div
-            className="mt-20 grid grid-cols-1 md:grid-cols-3 gap-12"
             initial="hidden"
             whileInView="visible"
-            viewport={{ once: true, margin: "-100px" }}
+            viewport={{ once: true }}
             variants={staggerContainer}
+            className="text-center"
           >
-            <motion.div
-              className="relative group"
-              variants={fadeIn}
-              whileHover={{ y: -5 }}
-              transition={{ type: "spring", stiffness: 300 }}
+            <motion.h2 
+              variants={slideUp}
+              className="text-3xl font-bold text-white mb-8"
             >
-              <div className="absolute -inset-1 rounded-2xl bg-gradient-to-r from-primary to-secondary opacity-25 group-hover:opacity-100 transition-opacity blur" />
-              <div className="relative p-8 bg-white dark:bg-gray-800 rounded-xl">
-                <div className="w-12 h-12 flex items-center justify-center rounded-lg bg-primary/10 text-primary mb-6">
-                  <svg
-                    className="w-6 h-6"
-                    fill="none"
-                    viewBox="0 0 24 24"
-                    stroke="currentColor"
-                  >
-                    <path
-                      strokeLinecap="round"
-                      strokeLinejoin="round"
-                      strokeWidth={2}
-                      d="M13 10V3L4 14h7v7l9-11h-7z"
-                    />
+              Why Choose Our Developer Tools?
+            </motion.h2>
+            <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
+              <motion.div 
+                variants={slideUp}
+                className="p-6 bg-gray-800 rounded-lg"
+              >
+                <div className="w-12 h-12 bg-blue-500 rounded-full flex items-center justify-center mx-auto mb-4">
+                  <svg className="w-6 h-6 text-white" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                    <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M13 10V3L4 14h7v7l9-11h-7z" />
                   </svg>
                 </div>
-                <h3 className="text-xl font-semibold mb-3">Lightning Fast</h3>
-                <p className="text-gray-600 dark:text-gray-300">
-                  All tools run directly in your browser for instant results and
-                  maximum privacy.
-                </p>
-              </div>
-            </motion.div>
+                <h3 className="text-xl font-semibold text-white mb-2">Lightning Fast</h3>
+                <p className="text-gray-300">All tools run directly in your browser for instant results</p>
+              </motion.div>
 
-            <motion.div
-              className="relative group"
-              variants={fadeIn}
-              whileHover={{ y: -5 }}
-              transition={{ type: "spring", stiffness: 300 }}
-            >
-              <div className="absolute -inset-1 rounded-2xl bg-gradient-to-r from-primary to-secondary opacity-25 group-hover:opacity-100 transition-opacity blur" />
-              <div className="relative p-8 bg-white dark:bg-gray-800 rounded-xl">
-                <div className="w-12 h-12 flex items-center justify-center rounded-lg bg-primary/10 text-primary mb-6">
-                  <svg
-                    className="w-6 h-6"
-                    fill="none"
-                    viewBox="0 0 24 24"
-                    stroke="currentColor"
-                  >
-                    <path
-                      strokeLinecap="round"
-                      strokeLinejoin="round"
-                      strokeWidth={2}
-                      d="M12 15v2m-6 4h12a2 2 0 002-2v-6a2 2 0 00-2-2H6a2 2 0 00-2 2v6a2 2 0 002 2zm10-10V7a4 4 0 00-8 0v4h8z"
-                    />
+              <motion.div 
+                variants={slideUp}
+                className="p-6 bg-gray-800 rounded-lg"
+              >
+                <div className="w-12 h-12 bg-green-500 rounded-full flex items-center justify-center mx-auto mb-4">
+                  <svg className="w-6 h-6 text-white" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                    <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M12 15v2m-6 4h12a2 2 0 002-2v-6a2 2 0 00-2-2H6a2 2 0 00-2 2v6a2 2 0 002 2zm10-10V7a4 4 0 00-8 0v4h8z" />
                   </svg>
                 </div>
-                <h3 className="text-xl font-semibold mb-3">Secure by Design</h3>
-                <p className="text-gray-600 dark:text-gray-300">
-                  Your data never leaves your device. Everything is processed
-                  locally.
-                </p>
-              </div>
-            </motion.div>
+                <h3 className="text-xl font-semibold text-white mb-2">Secure</h3>
+                <p className="text-gray-300">Your data never leaves your browser</p>
+              </motion.div>
 
-            <motion.div
-              className="relative group"
-              variants={fadeIn}
-              whileHover={{ y: -5 }}
-              transition={{ type: "spring", stiffness: 300 }}
-            >
-              <div className="absolute -inset-1 rounded-2xl bg-gradient-to-r from-primary to-secondary opacity-25 group-hover:opacity-100 transition-opacity blur" />
-              <div className="relative p-8 bg-white dark:bg-gray-800 rounded-xl">
-                <div className="w-12 h-12 flex items-center justify-center rounded-lg bg-primary/10 text-primary mb-6">
-                  <svg
-                    className="w-6 h-6"
-                    fill="none"
-                    viewBox="0 0 24 24"
-                    stroke="currentColor"
-                  >
-                    <path
-                      strokeLinecap="round"
-                      strokeLinejoin="round"
-                      strokeWidth={2}
-                      d="M4 4v5h.582m15.356 2A8.001 8.001 0 004.582 9m0 0H9m11 11v-5h-.581m0 0a8.003 8.003 0 01-15.357-2m15.357 2H15"
-                    />
+              <motion.div 
+                variants={slideUp}
+                className="p-6 bg-gray-800 rounded-lg"
+              >
+                <div className="w-12 h-12 bg-purple-500 rounded-full flex items-center justify-center mx-auto mb-4">
+                  <svg className="w-6 h-6 text-white" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                    <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M4 5a1 1 0 011-1h14a1 1 0 011 1v2a1 1 0 01-1 1H5a1 1 0 01-1-1V5zM4 13a1 1 0 011-1h6a1 1 0 011 1v6a1 1 0 01-1 1H5a1 1 0 01-1-1v-6zM16 13a1 1 0 011-1h2a1 1 0 011 1v6a1 1 0 01-1 1h-2a1 1 0 01-1-1v-6z" />
                   </svg>
                 </div>
-                <h3 className="text-xl font-semibold mb-3">Always Updated</h3>
-                <p className="text-gray-600 dark:text-gray-300">
-                  Regular updates ensure compatibility with the latest web
-                  standards.
-                </p>
-              </div>
-            </motion.div>
+                <h3 className="text-xl font-semibold text-white mb-2">All-in-One</h3>
+                <p className="text-gray-300">Everything you need in one place</p>
+              </motion.div>
+            </div>
           </motion.div>
         </div>
-      </div>
+      </section>
+
+      {/* Statistics Section */}
+      <section className="py-20 bg-gray-800">
+        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+          <motion.div
+            initial="hidden"
+            whileInView="visible"
+            viewport={{ once: true }}
+            variants={staggerContainer}
+            className="grid grid-cols-2 md:grid-cols-4 gap-8"
+          >
+            {statistics.map((stat, index) => (
+              <motion.div
+                key={index}
+                variants={slideUp}
+                className="text-center"
+              >
+                <div className="text-4xl font-bold text-blue-500 mb-2">{stat.number}</div>
+                <div className="text-gray-300">{stat.label}</div>
+              </motion.div>
+            ))}
+          </motion.div>
+        </div>
+      </section>
 
       {/* Tools Section */}
       <div id="tools" className="py-24">
@@ -481,43 +404,40 @@ export default function Home() {
         </div>
       </div>
 
-      {/* CTA Section */}
-      <div className="relative overflow-hidden">
-        <motion.div
-          className="absolute inset-0 bg-gradient-to-br from-primary/10 to-secondary/10 dark:from-primary/5 dark:to-secondary/5"
-          initial={{ opacity: 0 }}
-          whileInView={{ opacity: 1 }}
-          transition={{ duration: 1 }}
-        />
-      </div>
+      {/* Call to Action Section */}
+      <section className="py-20 bg-gradient-to-b from-gray-800 to-gray-900">
+        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+          <motion.div
+            initial="hidden"
+            whileInView="visible"
+            viewport={{ once: true }}
+            variants={staggerContainer}
+            className="text-center"
+          >
+            <motion.h2 
+              variants={slideUp}
+              className="text-3xl font-bold text-white mb-4"
+            >
+              Ready to Streamline Your Development?
+            </motion.h2>
+            <motion.p 
+              variants={slideUp}
+              className="text-xl text-gray-300 mb-8"
+            >
+              Start using our developer tools today - no sign up required!
+            </motion.p>
+            <motion.div variants={slideUp}>
+              <Link
+                href="#tools"
+                className="inline-flex items-center justify-center px-8 py-3 border border-transparent text-base font-medium rounded-md text-white bg-blue-600 hover:bg-blue-700 md:py-4 md:text-lg md:px-10"
+              >
+                Get Started
+              </Link>
+            </motion.div>
+          </motion.div>
+        </div>
+      </section>
     </Layout>
   );
 }
-
-export const generateMetadata = () => {
-  const jsonLd = {
-    "@context": "https://schema.org",
-    "@type": "WebApplication",
-    "name": "Developer Tools",
-    "applicationCategory": "DeveloperApplication",
-    "offers": {
-      "@type": "Offer",
-      "price": "0",
-      "priceCurrency": "USD"
-    },
-    "featureList": [
-      "Code formatting",
-      "Data conversion",
-      "Security tools",
-      "Image processing"
-    ]
-  };
-
-  return {
-    other: {
-      'script:ld+json': JSON.stringify(jsonLd),
-    },
-  };
-};
-
 

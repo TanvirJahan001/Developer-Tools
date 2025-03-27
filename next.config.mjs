@@ -1,8 +1,5 @@
 /** @type {import('next').NextConfig} */
 const nextConfig = {
-  experimental: {
-    appDir: true,
-  },
   images: {
     domains: ['developer-tools-alpha.vercel.app'],
   },
@@ -46,5 +43,6 @@ const nextConfig = {
 };
 
 export default nextConfig;
+
 
 
