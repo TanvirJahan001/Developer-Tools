@@ -208,27 +208,27 @@ export default function Home() {
                 your workflow with our comprehensive suite of development tools.
               </motion.p>
               <motion.div
-                className="mt-10 flex gap-6 justify-center"
+                className="mt-8 flex gap-4 justify-center"
                 variants={fadeIn}
                 transition={{ delay: 0.7 }}
               >
                 <AnimatedButton
-                  className="px-8 py-4 text-lg font-bold rounded-xl bg-gradient-to-r from-primary to-secondary text-white shadow-lg shadow-primary/30 hover:shadow-xl hover:shadow-primary/40 hover:-translate-y-1 transition-all duration-300 relative overflow-hidden group"
+                  className="px-6 py-3 text-sm font-medium rounded-lg bg-gradient-to-r from-primary to-secondary text-white shadow-md shadow-primary/20 hover:shadow-lg hover:shadow-primary/30 hover:-translate-y-0.5 transition-all duration-300 relative overflow-hidden group"
                   onClick={() =>
                     document
                       .querySelector("#tools")
                       ?.scrollIntoView({ behavior: "smooth" })
                   }
                   whileHover={{
-                    scale: 1.05,
+                    scale: 1.03,
                     transition: { duration: 0.2, ease: "easeInOut" },
                   }}
                 >
-                  <span className="absolute inset-0 w-full h-full bg-gradient-to-r from-primary to-secondary opacity-0 group-hover:opacity-20 transition-opacity duration-300"></span>
+                  <span className="absolute inset-0 w-full h-full bg-gradient-to-r from-primary to-secondary opacity-0 group-hover:opacity-10 transition-opacity duration-300"></span>
                   <span className="relative z-10 flex items-center justify-center">
                     Explore Tools
                     <svg
-                      className="w-5 h-5 ml-2"
+                      className="w-4 h-4 ml-2"
                       fill="none"
                       viewBox="0 0 24 24"
                       stroke="currentColor"
@@ -243,22 +243,22 @@ export default function Home() {
                   </span>
                 </AnimatedButton>
                 <AnimatedButton
-                  className="px-8 py-4 text-lg font-bold rounded-xl border-2 border-white text-white backdrop-blur-sm bg-white/5 shadow-lg shadow-white/10 hover:bg-white/20 hover:shadow-xl hover:shadow-white/20 hover:-translate-y-1 transition-all duration-300 relative overflow-hidden group"
+                  className="px-6 py-3 text-sm font-medium rounded-lg border border-white text-white backdrop-blur-sm bg-white/5 shadow-md shadow-white/5 hover:bg-white/10 hover:shadow-lg hover:shadow-white/10 hover:-translate-y-0.5 transition-all duration-300 relative overflow-hidden group"
                   onClick={() =>
                     document
                       .querySelector("#features")
                       ?.scrollIntoView({ behavior: "smooth" })
                   }
                   whileHover={{
-                    scale: 1.05,
+                    scale: 1.03,
                     transition: { duration: 0.2, ease: "easeInOut" },
                   }}
                 >
-                  <span className="absolute inset-0 w-full h-full bg-white opacity-0 group-hover:opacity-10 transition-opacity duration-300"></span>
+                  <span className="absolute inset-0 w-full h-full bg-white opacity-0 group-hover:opacity-5 transition-opacity duration-300"></span>
                   <span className="relative z-10 flex items-center justify-center">
                     Learn More
                     <svg
-                      className="w-5 h-5 ml-2"
+                      className="w-4 h-4 ml-2"
                       fill="none"
                       viewBox="0 0 24 24"
                       stroke="currentColor"
@@ -458,11 +458,11 @@ export default function Home() {
                   </div>
                   <Link
                     href={category.href}
-                    className="inline-flex items-center justify-center w-full px-4 py-2 text-sm font-medium rounded-md text-primary border border-primary/20 hover:bg-primary/5 transition-colors"
+                    className="inline-flex items-center justify-center w-full px-4 py-2 text-sm font-medium rounded-md text-primary border border-primary/20 hover:bg-primary/10 hover:text-white hover:border-primary transition-all duration-300 group"
                   >
-                    Explore
+                    <span className="relative z-10">Explore</span>
                     <svg
-                      className="w-3.5 h-3.5 ml-1.5"
+                      className="w-3.5 h-3.5 ml-1.5 transition-transform duration-300 group-hover:translate-x-1"
                       fill="none"
                       viewBox="0 0 24 24"
                       stroke="currentColor"
@@ -474,6 +474,7 @@ export default function Home() {
                         d="M9 5l7 7-7 7"
                       />
                     </svg>
+                    <span className="absolute inset-0 bg-gradient-to-r from-primary to-secondary opacity-0 group-hover:opacity-100 transition-opacity duration-300 rounded-md"></span>
                   </Link>
                 </div>
               </motion.div>
@@ -494,5 +495,31 @@ export default function Home() {
     </Layout>
   );
 }
+
+export const generateMetadata = () => {
+  const jsonLd = {
+    "@context": "https://schema.org",
+    "@type": "WebApplication",
+    "name": "Developer Tools",
+    "applicationCategory": "DeveloperApplication",
+    "offers": {
+      "@type": "Offer",
+      "price": "0",
+      "priceCurrency": "USD"
+    },
+    "featureList": [
+      "Code formatting",
+      "Data conversion",
+      "Security tools",
+      "Image processing"
+    ]
+  };
+
+  return {
+    other: {
+      'script:ld+json': JSON.stringify(jsonLd),
+    },
+  };
+};
 
 

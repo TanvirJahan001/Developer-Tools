@@ -3,114 +3,164 @@
 import { useState } from "react";
 
 export default function JsonToCsv() {
-  const [input, setInput] = useState("");
-  const [output, setOutput] = useState("");
+  const [jsonInput, setJsonInput] = useState("");
+  const [csvOutput, setCsvOutput] = useState("");
   const [error, setError] = useState("");
+  const [copied, setCopied] = useState(false);
 
-  const handleConvert = () => {
-    setError("");
+  const isValidJson = (str) => {
     try {
-      // Parse JSON input
-      const jsonData = JSON.parse(input);
-
-      // Check if it's an array of objects
-      if (!Array.isArray(jsonData)) {
-        setError("Input must be an array of objects");
-        return;
-      }
-
-      // Get headers from the first object
-      const headers = Object.keys(jsonData[0]);
-
-      // Create CSV header row
-      let csv = headers.join(",") + "\n";
-
-      // Add data rows
-      jsonData.forEach((item) => {
-        const row = headers
-          .map((header) => {
-            // Handle nested objects and arrays
-            const cell = item[header];
-            if (typeof cell === "object" && cell !== null) {
-              return '"' + JSON.stringify(cell).replace(/"/g, '""') + '"';
-            }
-            // Escape quotes and handle commas
-            return typeof cell === "string"
-              ? '"' + cell.replace(/"/g, '""') + '"'
-              : cell;
-          })
-          .join(",");
-        csv += row + "\n";
-      });
-
-      setOutput(csv);
-    } catch (err) {
-      setError("Error: " + err.message);
-      setOutput("");
+      JSON.parse(str);
+      return true;
+    } catch (e) {
+      return false;
     }
   };
 
+  const flattenObject = (obj, prefix = "") => {
+    return Object.keys(obj).reduce((acc, key) => {
+      const pre = prefix.length ? prefix + "." : "";
+      if (
+        typeof obj[key] === "object" &&
+        obj[key] !== null &&
+        !Array.isArray(obj[key])
+      ) {
+        Object.assign(acc, flattenObject(obj[key], pre + key));
+      } else {
+        acc[pre + key] = obj[key];
+      }
+      return acc;
+    }, {});
+  };
+
+  const convertJsonToCsv = () => {
+    if (!jsonInput.trim()) {
+      setError("Please enter JSON data");
+      return;
+    }
+
+    if (!isValidJson(jsonInput)) {
+      setError("Invalid JSON format");
+      return;
+    }
+
+    try {
+      setError("");
+      const jsonData = JSON.parse(jsonInput);
+      
+      // Handle different JSON structures
+      let arrayToProcess = [];
+      if (Array.isArray(jsonData)) {
+        arrayToProcess = jsonData;
+      } else {
+        arrayToProcess = [jsonData];
+      }
+
+      // Flatten nested objects
+      const flattenedArray = arrayToProcess.map(item => flattenObject(item));
+
+      // Get all unique headers
+      const headers = [...new Set(
+        flattenedArray.reduce((acc, item) => {
+          return [...acc, ...Object.keys(item)];
+        }, [])
+      )];
+
+      // Create CSV rows
+      const csvRows = [
+        headers.join(","), // Header row
+        ...flattenedArray.map(item => {
+          return headers.map(header => {
+            const value = item[header] ?? "";
+            // Handle special characters and commas
+            return typeof value === "string" && (value.includes(",") || value.includes('"') || value.includes("\n"))
+              ? `"${value.replace(/"/g, '""')}"` 
+              : value;
+          }).join(",");
+        })
+      ];
+
+      const csv = csvRows.join("\n");
+      setCsvOutput(csv);
+    } catch (err) {
+      setError("Error converting JSON to CSV: " + err.message);
+      setCsvOutput("");
+    }
+  };
+
+  const handleCopy = () => {
+    navigator.clipboard.writeText(csvOutput);
+    setCopied(true);
+    setTimeout(() => setCopied(false), 2000);
+  };
+
+  const handleDownload = () => {
+    const blob = new Blob([csvOutput], { type: "text/csv" });
+    const url = URL.createObjectURL(blob);
+    const link = document.createElement("a");
+    link.href = url;
+    link.download = "converted.csv";
+    document.body.appendChild(link);
+    link.click();
+    document.body.removeChild(link);
+    URL.revokeObjectURL(url);
+  };
+
   return (
-    <div className="bg-white dark:bg-gray-800 shadow-md rounded-lg p-6">
-      <div className="mb-4">
-        <h2 className="text-xl font-semibold text-gray-900 dark:text-white mb-2">
-          JSON to CSV Converter
-        </h2>
-        <p className="text-sm text-gray-500 dark:text-gray-400">
-          Convert JSON data to CSV format for easier data analysis and
-          manipulation.
-        </p>
+    <div className="space-y-6">
+      <div>
+        <label className="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-2">
+          JSON Input
+        </label>
+        <textarea
+          value={jsonInput}
+          onChange={(e) => setJsonInput(e.target.value)}
+          className="w-full h-48 p-4 border rounded-lg bg-white dark:bg-gray-800 text-gray-900 dark:text-white font-mono text-sm"
+          placeholder="Paste your JSON here..."
+        />
       </div>
 
-      <div className="mb-4">
-        <div className="mb-4">
-          <label
-            htmlFor="input"
-            className="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-2"
-          >
-            JSON Input
-          </label>
-          <textarea
-            id="input"
-            rows={6}
-            className="w-full px-3 py-2 text-gray-700 dark:text-gray-300 border rounded-md focus:outline-none focus:ring-2 focus:ring-primary dark:bg-gray-700 dark:border-gray-600 font-mono"
-            value={input}
-            onChange={(e) => setInput(e.target.value)}
-            placeholder='[{"name":"John","age":30},{"name":"Jane","age":25}]'
-          />
+      <button
+        onClick={convertJsonToCsv}
+        className="group relative inline-flex w-full items-center justify-center px-6 py-3 text-sm font-medium tracking-wide text-white transition-all duration-300 ease-in-out rounded-lg bg-gradient-to-r from-primary to-blue-600 hover:from-blue-700 hover:to-primary active:scale-95 shadow-lg hover:shadow-xl"
+      >
+        Convert to CSV
+      </button>
+
+      {error && (
+        <div className="text-red-500 text-sm mt-2">
+          {error}
         </div>
+      )}
 
-        {error && (
-          <div className="mb-4 p-3 bg-red-100 border border-red-400 text-red-700 rounded">
-            {error}
-          </div>
-        )}
-
-        <div className="mb-4">
-          <button
-            onClick={handleConvert}
-            className="w-full px-4 py-2 text-sm font-medium text-white bg-primary rounded-md hover:bg-primary/90 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-primary"
-          >
-            Convert to CSV
-          </button>
-        </div>
-
+      {csvOutput && (
         <div>
-          <label
-            htmlFor="output"
-            className="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-2"
-          >
-            CSV Result
-          </label>
+          <div className="flex justify-between items-center mb-2">
+            <label className="block text-sm font-medium text-gray-700 dark:text-gray-300">
+              CSV Output
+            </label>
+            <div className="space-x-4">
+              <button
+                onClick={handleCopy}
+                className="text-sm text-primary hover:text-primary-dark"
+              >
+                {copied ? "Copied!" : "Copy to Clipboard"}
+              </button>
+              <button
+                onClick={handleDownload}
+                className="text-sm text-primary hover:text-primary-dark"
+              >
+                Download CSV
+              </button>
+            </div>
+          </div>
           <textarea
-            id="output"
-            rows={6}
-            className="w-full px-3 py-2 text-gray-700 dark:text-gray-300 border rounded-md focus:outline-none focus:ring-2 focus:ring-primary dark:bg-gray-700 dark:border-gray-600 font-mono"
-            value={output}
             readOnly
+            value={csvOutput}
+            className="w-full h-48 p-4 border rounded-lg bg-white dark:bg-gray-800 text-gray-900 dark:text-white font-mono text-sm"
           />
         </div>
-      </div>
+      )}
     </div>
   );
 }

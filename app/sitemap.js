@@ -1,7 +1,7 @@
 export default async function sitemap() {
   const baseUrl = 'https://developer-tools-alpha.vercel.app';
 
- 
+  // Add lastModified dates for better SEO
   const staticRoutes = [
     {
       url: baseUrl,
@@ -45,7 +45,15 @@ export default async function sitemap() {
       changeFrequency: 'weekly',
       priority: 0.8,
     },
-  ];
+  ].map(route => ({
+    ...route,
+    alternateRefs: [
+      {
+        href: route.url.replace(baseUrl, 'https://developer-tools-alpha.vercel.app'),
+        hreflang: 'en',
+      },
+    ],
+  }));
 
   
   const toolRoutes = [
@@ -89,6 +97,12 @@ export default async function sitemap() {
     lastModified: new Date(),
     changeFrequency: 'weekly',
     priority: 0.6,
+    alternateRefs: [
+      {
+        href: `${baseUrl}/tools/${tool}`,
+        hreflang: 'en',
+      },
+    ],
   }));
 
   return [...staticRoutes, ...toolRoutes];

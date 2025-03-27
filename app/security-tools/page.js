@@ -2,6 +2,7 @@
 
 import { useState } from "react";
 import Layout from "../../components/Layout";
+import PrimaryButton from "../../components/PrimaryButton";
 import CRC32Hash from "./components/CRC32Hash";
 import MD5Hash from "./components/MD5Hash";
 import SHA256Hash from "./components/SHA256Hash";
@@ -49,170 +50,154 @@ export default function SecurityTools() {
           </div>
         ) : (
           <div className="mt-12 grid gap-8 grid-cols-1 sm:grid-cols-2 lg:grid-cols-3">
-            {/* MD5 Hash Generator */}
+            {/* MD5 Hash */}
             <div className="bg-white dark:bg-gray-900 overflow-hidden shadow rounded-lg transition-all hover:shadow-lg">
-              <div className="px-4 py-5 sm:p-6">
-                <div className="flex items-center">
-                  <div className="flex-shrink-0 bg-primary/10 rounded-md p-3">
-                    <svg
-                      className="h-6 w-6 text-primary"
-                      fill="none"
-                      viewBox="0 0 24 24"
-                      stroke="currentColor"
-                    >
-                      <path
-                        strokeLinecap="round"
-                        strokeLinejoin="round"
-                        strokeWidth={2}
-                        d="M12 15v2m-6 4h12a2 2 0 002-2v-6a2 2 0 00-2-2H6a2 2 0 00-2 2v6a2 2 0 002 2zm10-10V7a4 4 0 00-8 0v4h8z"
-                      />
-                    </svg>
+              <div className="px-4 py-5 sm:p-6 flex flex-col h-full">
+                <div className="flex-grow">
+                  <div className="flex items-center mb-4">
+                    <div className="flex-shrink-0 bg-primary/10 rounded-md p-3">
+                      <svg
+                        className="h-6 w-6 text-primary"
+                        fill="none"
+                        viewBox="0 0 24 24"
+                        stroke="currentColor"
+                      >
+                        <path
+                          strokeLinecap="round"
+                          strokeLinejoin="round"
+                          strokeWidth={2}
+                          d="M12 15v2m-6 4h12a2 2 0 002-2v-6a2 2 0 00-2-2H6a2 2 0 00-2 2v6a2 2 0 002 2zm10-10V7a4 4 0 00-8 0v4h8z"
+                        />
+                      </svg>
+                    </div>
+                    <div className="ml-5">
+                      <h3 className="text-lg font-medium text-gray-900 dark:text-white truncate">
+                        MD5 Hash Generator
+                      </h3>
+                    </div>
                   </div>
-                  <div className="ml-5 w-0 flex-1">
-                    <h3 className="text-lg font-medium text-gray-900 dark:text-white truncate">
-                      MD5 Hash Generator
-                    </h3>
-                  </div>
-                </div>
-                <div className="mt-4">
                   <p className="text-sm text-gray-500 dark:text-gray-400">
-                    Generate MD5 hash from text or file input for verification
-                    purposes.
+                    Generate MD5 hashes for quick data verification and legacy systems.
                   </p>
                 </div>
-                <div className="mt-5">
-                  <button
-                    onClick={() => setActiveTool("md5-hash")}
-                    className="inline-flex items-center px-4 py-2 border border-transparent text-sm font-medium rounded-md shadow-sm text-white bg-primary hover:bg-primary/90 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-primary"
-                  >
+                <div className="mt-5 flex justify-center">
+                  <PrimaryButton onClick={() => setActiveTool("md5-hash")}>
                     Use Tool
-                  </button>
+                  </PrimaryButton>
                 </div>
               </div>
             </div>
 
-            {/* SHA-256 Hash Generator */}
+            {/* SHA-256 Hash */}
             <div className="bg-white dark:bg-gray-900 overflow-hidden shadow rounded-lg transition-all hover:shadow-lg">
-              <div className="px-4 py-5 sm:p-6">
-                <div className="flex items-center">
-                  <div className="flex-shrink-0 bg-primary/10 rounded-md p-3">
-                    <svg
-                      className="h-6 w-6 text-primary"
-                      fill="none"
-                      viewBox="0 0 24 24"
-                      stroke="currentColor"
-                    >
-                      <path
-                        strokeLinecap="round"
-                        strokeLinejoin="round"
-                        strokeWidth={2}
-                        d="M12 15v2m-6 4h12a2 2 0 002-2v-6a2 2 0 00-2-2H6a2 2 0 00-2 2v6a2 2 0 002 2zm10-10V7a4 4 0 00-8 0v4h8z"
-                      />
-                    </svg>
+              <div className="px-4 py-5 sm:p-6 flex flex-col h-full">
+                <div className="flex-grow">
+                  <div className="flex items-center mb-4">
+                    <div className="flex-shrink-0 bg-primary/10 rounded-md p-3">
+                      <svg
+                        className="h-6 w-6 text-primary"
+                        fill="none"
+                        viewBox="0 0 24 24"
+                        stroke="currentColor"
+                      >
+                        <path
+                          strokeLinecap="round"
+                          strokeLinejoin="round"
+                          strokeWidth={2}
+                          d="M9 12l2 2 4-4m5.618-4.016A11.955 11.955 0 0112 2.944a11.955 11.955 0 01-8.618 3.04A12.02 12.02 0 003 9c0 5.591 3.824 10.29 9 11.622 5.176-1.332 9-6.03 9-11.622 0-1.042-.133-2.052-.382-3.016z"
+                        />
+                      </svg>
+                    </div>
+                    <div className="ml-5">
+                      <h3 className="text-lg font-medium text-gray-900 dark:text-white truncate">
+                        SHA-256 Hash Generator
+                      </h3>
+                    </div>
                   </div>
-                  <div className="ml-5 w-0 flex-1">
-                    <h3 className="text-lg font-medium text-gray-900 dark:text-white truncate">
-                      SHA-256 Hash Generator
-                    </h3>
-                  </div>
-                </div>
-                <div className="mt-4">
                   <p className="text-sm text-gray-500 dark:text-gray-400">
-                    Generate SHA-256 hash for secure data verification and
-                    integrity checks.
+                    Generate SHA-256 hashes for secure cryptographic operations.
                   </p>
                 </div>
-                <div className="mt-5">
-                  <button
-                    onClick={() => setActiveTool("sha256-hash")}
-                    className="inline-flex items-center px-4 py-2 border border-transparent text-sm font-medium rounded-md shadow-sm text-white bg-primary hover:bg-primary/90 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-primary"
-                  >
+                <div className="mt-5 flex justify-center">
+                  <PrimaryButton onClick={() => setActiveTool("sha256-hash")}>
                     Use Tool
-                  </button>
+                  </PrimaryButton>
                 </div>
               </div>
             </div>
 
-            {/* SHA-512 Hash Generator */}
+            {/* SHA-512 Hash */}
             <div className="bg-white dark:bg-gray-900 overflow-hidden shadow rounded-lg transition-all hover:shadow-lg">
-              <div className="px-4 py-5 sm:p-6">
-                <div className="flex items-center">
-                  <div className="flex-shrink-0 bg-primary/10 rounded-md p-3">
-                    <svg
-                      className="h-6 w-6 text-primary"
-                      fill="none"
-                      viewBox="0 0 24 24"
-                      stroke="currentColor"
-                    >
-                      <path
-                        strokeLinecap="round"
-                        strokeLinejoin="round"
-                        strokeWidth={2}
-                        d="M12 15v2m-6 4h12a2 2 0 002-2v-6a2 2 0 00-2-2H6a2 2 0 00-2 2v6a2 2 0 002 2zm10-10V7a4 4 0 00-8 0v4h8z"
-                      />
-                    </svg>
+              <div className="px-4 py-5 sm:p-6 flex flex-col h-full">
+                <div className="flex-grow">
+                  <div className="flex items-center mb-4">
+                    <div className="flex-shrink-0 bg-primary/10 rounded-md p-3">
+                      <svg
+                        className="h-6 w-6 text-primary"
+                        fill="none"
+                        viewBox="0 0 24 24"
+                        stroke="currentColor"
+                      >
+                        <path
+                          strokeLinecap="round"
+                          strokeLinejoin="round"
+                          strokeWidth={2}
+                          d="M12 15v2m-6 4h12a2 2 0 002-2v-6a2 2 0 00-2-2H6a2 2 0 00-2 2v6a2 2 0 002 2zm10-10V7a4 4 0 00-8 0v4h8z"
+                        />
+                      </svg>
+                    </div>
+                    <div className="ml-5">
+                      <h3 className="text-lg font-medium text-gray-900 dark:text-white truncate">
+                        SHA-512 Hash Generator
+                      </h3>
+                    </div>
                   </div>
-                  <div className="ml-5 w-0 flex-1">
-                    <h3 className="text-lg font-medium text-gray-900 dark:text-white truncate">
-                      SHA-512 Hash Generator
-                    </h3>
-                  </div>
-                </div>
-                <div className="mt-4">
                   <p className="text-sm text-gray-500 dark:text-gray-400">
-                    Generate SHA-512 hash for enhanced security and
-                    cryptographic applications.
+                    Generate SHA-512 hashes for enhanced security and data integrity.
                   </p>
                 </div>
-                <div className="mt-5">
-                  <button
-                    onClick={() => setActiveTool("sha512-hash")}
-                    className="inline-flex items-center px-4 py-2 border border-transparent text-sm font-medium rounded-md shadow-sm text-white bg-primary hover:bg-primary/90 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-primary"
-                  >
+                <div className="mt-5 flex justify-center">
+                  <PrimaryButton onClick={() => setActiveTool("sha512-hash")}>
                     Use Tool
-                  </button>
+                  </PrimaryButton>
                 </div>
               </div>
             </div>
 
-            {/* CRC32 Hash Generator */}
+            {/* CRC32 Hash */}
             <div className="bg-white dark:bg-gray-900 overflow-hidden shadow rounded-lg transition-all hover:shadow-lg">
-              <div className="px-4 py-5 sm:p-6">
-                <div className="flex items-center">
-                  <div className="flex-shrink-0 bg-primary/10 rounded-md p-3">
-                    <svg
-                      className="h-6 w-6 text-primary"
-                      fill="none"
-                      viewBox="0 0 24 24"
-                      stroke="currentColor"
-                    >
-                      <path
-                        strokeLinecap="round"
-                        strokeLinejoin="round"
-                        strokeWidth={2}
-                        d="M12 15v2m-6 4h12a2 2 0 002-2v-6a2 2 0 00-2-2H6a2 2 0 00-2 2v6a2 2 0 002 2zm10-10V7a4 4 0 00-8 0v4h8z"
-                      />
-                    </svg>
+              <div className="px-4 py-5 sm:p-6 flex flex-col h-full">
+                <div className="flex-grow">
+                  <div className="flex items-center mb-4">
+                    <div className="flex-shrink-0 bg-primary/10 rounded-md p-3">
+                      <svg
+                        className="h-6 w-6 text-primary"
+                        fill="none"
+                        viewBox="0 0 24 24"
+                        stroke="currentColor"
+                      >
+                        <path
+                          strokeLinecap="round"
+                          strokeLinejoin="round"
+                          strokeWidth={2}
+                          d="M4 7v10c0 2.21 3.582 4 8 4s8-1.79 8-4V7M4 7c0 2.21 3.582 4 8 4s8-1.79 8-4M4 7c0-2.21 3.582-4 8-4s8 1.79 8 4"
+                        />
+                      </svg>
+                    </div>
+                    <div className="ml-5">
+                      <h3 className="text-lg font-medium text-gray-900 dark:text-white truncate">
+                        CRC32 Hash Generator
+                      </h3>
+                    </div>
                   </div>
-                  <div className="ml-5 w-0 flex-1">
-                    <h3 className="text-lg font-medium text-gray-900 dark:text-white truncate">
-                      CRC32 Hash Generator
-                    </h3>
-                  </div>
-                </div>
-                <div className="mt-4">
                   <p className="text-sm text-gray-500 dark:text-gray-400">
-                    Generate CRC32 checksums for error detection in data
-                    transmission and storage.
+                    Generate CRC32 checksums for error detection and data verification.
                   </p>
                 </div>
-                <div className="mt-5">
-                  <button
-                    onClick={() => setActiveTool("crc32-hash")}
-                    className="inline-flex items-center px-4 py-2 border border-transparent text-sm font-medium rounded-md shadow-sm text-white bg-primary hover:bg-primary/90 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-primary"
-                  >
+                <div className="mt-5 flex justify-center">
+                  <PrimaryButton onClick={() => setActiveTool("crc32-hash")}>
                     Use Tool
-                  </button>
+                  </PrimaryButton>
                 </div>
               </div>
             </div>
