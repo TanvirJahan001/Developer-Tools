@@ -60,7 +60,7 @@ export default function Navbar() {
               {[
                 { href: "/code-tidy", label: "Code Tidy" },
                 { href: "/data-format", label: "Data Format" },
-                { href: "/random-data", label: "Random Data & Password" },
+                { href: "/random-data", label: "Data & Password Generator" },
                 { href: "/security-tools", label: "Security Tools" },
                 { href: "/utilities", label: "Utilities" },
                 { href: "/image-tools", label: "Image Tools" },
